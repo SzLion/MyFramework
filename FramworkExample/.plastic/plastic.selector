@@ -1,0 +1,4 @@
+repository "FramworkExample@ssl://a_big_lion@sh03-plasticscm.unity.cn:8787"
+  path "/"
+    smartbranch "/main/1056195448" 
+     
