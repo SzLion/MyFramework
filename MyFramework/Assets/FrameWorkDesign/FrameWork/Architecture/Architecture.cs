@@ -1,6 +1,5 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 namespace FrameworkDesign
 {
     public interface IArchitecture
@@ -20,6 +19,9 @@ namespace FrameworkDesign
         /// </summary>
         private List<IModel> mModels = new List<IModel>();
         #region 类似单例模式，但是仅在内部可访问
+
+        public static Action<T> OnRegisterPatch = architecture => { };
+
         private static T mArchitecture = null;
 
         static void MakeSureArchitecture()
@@ -28,6 +30,9 @@ namespace FrameworkDesign
             {
                 mArchitecture = new T();
                 mArchitecture.Init();
+
+                OnRegisterPatch?.Invoke(mArchitecture);
+
                 foreach (var architectureModel in mArchitecture .mModels)
                 {
                     architectureModel.init();
@@ -40,7 +45,7 @@ namespace FrameworkDesign
         private static IOCContainer mContainer = new IOCContainer();
         protected abstract void Init();
 
-        public void Register<T>(T instance)
+        public static void Register<T>(T instance)
         {
             MakeSureArchitecture();
             mContainer.Register<T>(instance);
@@ -72,6 +77,13 @@ namespace FrameworkDesign
         public void RegisterUtility<T>(T instance)
         {
             mContainer.Register<T>(instance);
+        }
+        /// <summary>
+        /// 销毁Architecture
+        /// </summary>
+        public static void DestoryArchitecture()
+        {
+            mArchitecture = null;
         }
     }
 }

@@ -5,7 +5,7 @@ namespace CounterApp
     {
         protected override void Init()
         {
-            Register<IStorage>(new PlayerPrefsStorage());
+            RegisterUtility<IStorage>(new PlayerPrefsStorage());
             RegisterModel<ICounterModel>(new CounterModel());
         }
     }

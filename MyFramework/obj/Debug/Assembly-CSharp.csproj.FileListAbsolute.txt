@@ -1,0 +1,2 @@
+E:\Project_SZY\MyFramework\MyFramework\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+E:\Project_SZY\MyFramework\MyFramework\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

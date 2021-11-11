@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/FrameWorkDesign/Example/Game.unity
+- path: Assets/FrameWorkDesign/Example/InterfaceDesign/InterfaceRuleExample.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
