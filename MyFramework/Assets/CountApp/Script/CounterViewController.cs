@@ -12,15 +12,18 @@ namespace CounterApp
     {
         BandableProperty<int> Count { get; }
     }
-    public class CounterViewController : MonoBehaviour
+    public class CounterViewController : MonoBehaviour,IController 
     {
        
         private ICounterModel mCounterModel;
+
+        
+
         // Start is called before the first frame update
         void Start()
         {
         
-            mCounterModel = CounterApp.Get<ICounterModel>();
+            mCounterModel = Architecture.GetModel<ICounterModel>();
             mCounterModel.Count.OnValueChanged += OnCountChanged;
             transform.Find("BtnAdd").GetComponent<Button>().onClick.AddListener(() =>
             {
@@ -43,6 +46,7 @@ namespace CounterApp
         {
             mCounterModel.Count.OnValueChanged -= OnCountChanged;
         }
+        public IArchitecture Architecture { get; set; } = CounterApp.Interface;
     }
     public class CounterModel : ICounterModel
     {       

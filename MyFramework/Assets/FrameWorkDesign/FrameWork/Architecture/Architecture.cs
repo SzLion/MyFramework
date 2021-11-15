@@ -41,6 +41,8 @@ namespace FrameworkDesign
         /// 是否初始化完成
         /// </summary>
         private bool mInited = false;
+       
+       
         /// <summary>
         /// 用于初始化的models的缓存
         /// </summary>
@@ -50,7 +52,18 @@ namespace FrameworkDesign
 
         public static Action<T> OnRegisterPatch = architecture => { };
 
-        private static T mArchitecture = null;
+        private static T mArchitecture;
+        public static IArchitecture Interface
+        {
+            get
+            {
+                if (mArchitecture == null)
+                {
+                    MakeSureArchitecture();
+                }
+                return mArchitecture;
+            }
+        }
 
         public void RegisterModel<T>(T instance) where T : IModel
         {
