@@ -55,7 +55,9 @@
   <ItemGroup>
     <Compile Include="Assets\FrameWorkDesign\Example\IOC\DIPExample.cs" />
     <Compile Include="Assets\FrameWorkDesign\Example\Scripts\Game\Game.cs" />
+    <Compile Include="Assets\FrameWorkDesign\Example\InterfaceDesign\InterfaceRuleExample.cs" />
     <Compile Include="Assets\CountApp\Script\Command\AddCountCommand.cs" />
+    <Compile Include="Assets\FrameWorkDesign\Example\InterfaceDesign\InterfaceStructExample.cs" />
     <Compile Include="Assets\CountApp\Script\Command\SubCountCommand.cs" />
     <Compile Include="Assets\FrameWorkDesign\FrameWork\Command\ICommand.cs" />
     <Compile Include="Assets\FrameWorkDesign\Example\Scripts\UI\GameStartPanel.cs" />
@@ -66,6 +68,7 @@
     <Compile Include="Assets\FrameWorkDesign\FrameWork\Architecture\IModel.cs" />
     <Compile Include="Assets\FrameWorkDesign\FrameWork\Events\Event.cs" />
     <Compile Include="Assets\FrameWorkDesign\Example\IOC\IOCExample.cs" />
+    <Compile Include="Assets\FrameWorkDesign\Example\InterfaceDesign\InterfaceDesignExample.cs" />
     <Compile Include="Assets\FrameWorkDesign\FrameWork\Singleton\Singleton.cs" />
     <Compile Include="Assets\FrameWorkDesign\FrameWork\Command\GameStartCommand.cs" />
     <Compile Include="Assets\FrameWorkDesign\Example\Scripts\Model\GameModel.cs" />
@@ -78,9 +81,8 @@
     <Compile Include="Assets\FrameWorkDesign\FrameWork\IOC\IOCContainer.cs" />
     <Compile Include="Assets\CountApp\Script\CounterViewController.cs" />
     <Compile Include="Assets\CountApp\Script\IStorage.cs" />
-    <Compile Include="Assets\FrameWorkDesign\Example\InterfaceDesign\InterfaceDesignExample.cs" />
-    <Compile Include="Assets\FrameWorkDesign\Example\InterfaceDesign\InterfaceStructExample.cs" />
-    <Compile Include="Assets\FrameWorkDesign\Example\InterfaceDesign\InterfaceRuleExample.cs" />
+    <Compile Include="Assets\FrameWorkDesign\FrameWork\Architecture\ISystem.cs" />
+    <Compile Include="Assets\CountApp\AchievementSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
