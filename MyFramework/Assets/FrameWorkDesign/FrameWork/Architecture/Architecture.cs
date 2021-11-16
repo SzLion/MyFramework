@@ -35,14 +35,14 @@ namespace FrameworkDesign
         /// <returns></returns>
         T GetModel<T>() where T : class, IModel;
     }
-    public abstract class Architecture<T>:IArchitecture where T : Architecture<T>, new()
+    public abstract class Architecture<T> : IArchitecture where T : Architecture<T>, new()
     {
         /// <summary>
         /// 是否初始化完成
         /// </summary>
         private bool mInited = false;
-       
-       
+
+
         /// <summary>
         /// 用于初始化的models的缓存
         /// </summary>
@@ -67,7 +67,7 @@ namespace FrameworkDesign
 
         public void RegisterModel<T>(T instance) where T : IModel
         {
-            instance.Architecture = this;
+            instance.SetArchitecture(this);
             mContainer.Register<T>(instance);
             if (mInited)
             {
@@ -81,7 +81,7 @@ namespace FrameworkDesign
 
         public void RegisterSystem<T>(T instance) where T : ISystem
         {
-            instance.Architecture = this;
+            instance.SetArchitecture(this);
             mContainer.Register<T>(instance);
             if (mInited)
             {
@@ -102,12 +102,12 @@ namespace FrameworkDesign
 
                 OnRegisterPatch?.Invoke(mArchitecture);
 
-                foreach (var architectureModel in mArchitecture .mModels)
+                foreach (var architectureModel in mArchitecture.mModels)
                 {
                     architectureModel.init();
                 }
                 mArchitecture.mModels.Clear();
-                foreach (var architectureSystem in mArchitecture .mSystems)
+                foreach (var architectureSystem in mArchitecture.mSystems)
                 {
                     architectureSystem.init();
                 }
@@ -129,7 +129,7 @@ namespace FrameworkDesign
             MakeSureArchitecture();
             return mContainer.Get<T>();
         }
-      
+
 
         public T GetUtility<T>() where T : class
         {
@@ -148,7 +148,7 @@ namespace FrameworkDesign
             mArchitecture = null;
         }
 
-        public T GetModel<T>() where T : class,IModel
+        public T GetModel<T>() where T : class, IModel
         {
             return mContainer.Get<T>();
         }

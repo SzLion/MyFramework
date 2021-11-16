@@ -21,9 +21,8 @@ namespace CounterApp
 
         // Start is called before the first frame update
         void Start()
-        {
-        
-            mCounterModel = Architecture.GetModel<ICounterModel>();
+        {        
+            mCounterModel = GetArchitecture().GetModel<ICounterModel>();
             mCounterModel.Count.OnValueChanged += OnCountChanged;
             transform.Find("BtnAdd").GetComponent<Button>().onClick.AddListener(() =>
             {
@@ -46,13 +45,19 @@ namespace CounterApp
         {
             mCounterModel.Count.OnValueChanged -= OnCountChanged;
         }
-        public IArchitecture Architecture { get; set; } = CounterApp.Interface;
-    }
-    public class CounterModel : ICounterModel
-    {       
-        public void init()
+
+        public IArchitecture GetArchitecture()
         {
-            var storage = Architecture.GetUtility<IStorage>();
+            return CounterApp.Interface;
+        }
+
+       
+    }
+    public class CounterModel : AbstractModel, ICounterModel
+    {            
+        protected override void OnInit()
+        {
+            var storage = GetArchitecture ().GetUtility<IStorage>();
             Count.Value = storage.LoadInt("COUNTER_COUNT", 0);
             Count.OnValueChanged += count =>
             {
@@ -60,7 +65,7 @@ namespace CounterApp
             };
         }
         public BandableProperty<int> Count { get; } = new BandableProperty<int>() { Value = 0 };
-        public IArchitecture Architecture { get ; set ; }
+       
 
     }
 }

@@ -8,6 +8,6 @@ namespace FrameworkDesign
     /// </summary>
     public interface IBelongToArchitecture 
     {
-        IArchitecture Architecture { get; set; }
+        IArchitecture GetArchitecture();
     }
 }
