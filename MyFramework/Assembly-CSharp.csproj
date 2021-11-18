@@ -82,9 +82,14 @@
     <Compile Include="Assets\FrameWorkDesign\FrameWork\Architecture\Architecture.cs" />
     <Compile Include="Assets\FrameWorkDesign\FrameWork\IOC\IOCContainer.cs" />
     <Compile Include="Assets\CountApp\Script\CounterViewController.cs" />
+    <Compile Include="Assets\FrameWorkDesign\FrameWork\Architecture\ICanSetArchitecture.cs" />
     <Compile Include="Assets\FrameWorkDesign\FrameWork\Architecture\ISystem.cs" />
     <Compile Include="Assets\CountApp\Script\IStorage.cs" />
-    <Compile Include="Assets\FrameWorkDesign\FrameWork\Architecture\ICanSetArchitecture.cs" />
+    <Compile Include="Assets\FrameWorkDesign\FrameWork\Architecture\IUtility.cs" />
+    <Compile Include="Assets\FrameWorkDesign\FrameWork\Architecture\Rule\ICanGetUtility.cs" />
+    <Compile Include="Assets\FrameWorkDesign\FrameWork\Architecture\Rule\ICanGetModel.cs" />
+    <Compile Include="Assets\FrameWorkDesign\FrameWork\Architecture\Rule\ICanGetSystem.cs" />
+    <Compile Include="Assets\FrameWorkDesign\FrameWork\Architecture\Rule\ICanSendCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

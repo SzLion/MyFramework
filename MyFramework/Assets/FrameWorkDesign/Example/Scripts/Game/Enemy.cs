@@ -1,12 +1,17 @@
 using UnityEngine;
 namespace FrameworkDesign.Example
 {
-    public class Enemy : MonoBehaviour
+    public class Enemy : MonoBehaviour, IController
     {
+        IArchitecture IBelongToArchitecture.GetArchitecture()
+        {
+            return PointGame.Interface;
+        }
+
         private void OnMouseDown()
         {
             Destroy(gameObject);
-            new KillEnemyCommand().Execute();
+            this.SendCommand<KillEnemyCommand>();
         }
     }
 }

@@ -11,6 +11,12 @@ namespace FrameworkDesign
         /// <param name="instance"></param>
         void RegisterSystem<T>(T instance) where T : ISystem;
         /// <summary>
+        /// 获取系统
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        T GetSystem<T>() where T : class, ISystem;
+        /// <summary>
         /// 注册Model
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -21,19 +27,26 @@ namespace FrameworkDesign
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="instance"></param>
-        void RegisterUtility<T>(T instance);
+        void RegisterUtility<T>(T instance) where T : IUtility;
         /// <summary>
         /// 获取Utility
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        T GetUtility<T>() where T : class;
+        T GetUtility<T>() where T : class, IUtility;
         /// <summary>
         /// 获取Model
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         T GetModel<T>() where T : class, IModel;
+        /// <summary>
+        /// 发送命令
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        void SendCommand<T>() where T : ICommand, new();
+
+        void SendCommand<T>(T command) where T : ICommand;
     }
     public abstract class Architecture<T> : IArchitecture where T : Architecture<T>, new()
     {
@@ -131,12 +144,12 @@ namespace FrameworkDesign
         }
 
 
-        public T GetUtility<T>() where T : class
+        public T GetUtility<T>() where T : class, IUtility
         {
             return mContainer.Get<T>();
         }
 
-        public void RegisterUtility<T>(T instance)
+        public void RegisterUtility<T>(T instance) where T : IUtility
         {
             mContainer.Register<T>(instance);
         }
@@ -149,6 +162,24 @@ namespace FrameworkDesign
         }
 
         public T GetModel<T>() where T : class, IModel
+        {
+            return mContainer.Get<T>();
+        }
+
+        public void SendCommand<T>() where T : ICommand, new()
+        {
+            var command = new T();
+            command.SetArchitecture(this);
+            command.Execute();
+        }
+
+        public void SendCommand<T>(T command) where T : ICommand
+        {
+            command.SetArchitecture(this);
+            command.Execute();
+        }
+
+        public T GetSystem<T>() where T : class, ISystem
         {
             return mContainer.Get<T>();
         }

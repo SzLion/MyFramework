@@ -8,30 +8,30 @@ using UnityEngine.UI;
 
 namespace CounterApp
 {
-    public interface ICounterModel:IModel
+    public interface ICounterModel : IModel
     {
         BandableProperty<int> Count { get; }
     }
-    public class CounterViewController : MonoBehaviour,IController 
+    public class CounterViewController : MonoBehaviour, IController
     {
-       
+
         private ICounterModel mCounterModel;
 
-        
+
 
         // Start is called before the first frame update
         void Start()
-        {        
-            mCounterModel = GetArchitecture().GetModel<ICounterModel>();
+        {
+            mCounterModel = this.GetModel<ICounterModel>();
             mCounterModel.Count.OnValueChanged += OnCountChanged;
             transform.Find("BtnAdd").GetComponent<Button>().onClick.AddListener(() =>
             {
-                new AddCountCommand().Execute();
+                this.SendCommand<AddCountCommand>();
 
             });
             transform.Find("BtnSub").GetComponent<Button>().onClick.AddListener(() =>
             {
-                new SubCountCommand().Execute();
+                this.SendCommand<SubCountCommand>();
 
             });
             OnCountChanged(mCounterModel.Count.Value);
@@ -46,18 +46,18 @@ namespace CounterApp
             mCounterModel.Count.OnValueChanged -= OnCountChanged;
         }
 
-        public IArchitecture GetArchitecture()
+        IArchitecture IBelongToArchitecture.GetArchitecture()
         {
             return CounterApp.Interface;
         }
 
-       
+
     }
     public class CounterModel : AbstractModel, ICounterModel
-    {            
+    {
         protected override void OnInit()
         {
-            var storage = GetArchitecture ().GetUtility<IStorage>();
+            var storage = this.GetUtility<IStorage>();
             Count.Value = storage.LoadInt("COUNTER_COUNT", 0);
             Count.OnValueChanged += count =>
             {
@@ -65,7 +65,7 @@ namespace CounterApp
             };
         }
         public BandableProperty<int> Count { get; } = new BandableProperty<int>() { Value = 0 };
-       
+
 
     }
 }

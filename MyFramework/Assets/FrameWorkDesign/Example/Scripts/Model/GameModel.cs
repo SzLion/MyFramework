@@ -1,13 +1,14 @@
+using FrameworkDesign;
 namespace FrameworkDesign.Example
 {
-    public interface IGameModel
+    public interface IGameModel:IModel 
     {
         BandableProperty<int> KillCount { get; }
         BandableProperty<int> Gold { get; }
         BandableProperty<int> Score { get; }
         BandableProperty<int> BestScore { get; }
     }
-    public class GameModel:IGameModel
+    public class GameModel:AbstractModel , IGameModel
     {  
        
 
@@ -31,5 +32,10 @@ namespace FrameworkDesign.Example
         {
             Value = 0
         };
+
+        protected override void OnInit()
+        {
+            
+        }
     }
 }
