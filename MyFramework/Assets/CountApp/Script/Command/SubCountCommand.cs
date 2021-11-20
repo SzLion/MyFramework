@@ -1,11 +1,11 @@
 using FrameworkDesign;
 namespace CounterApp
 {
-    public struct SubCountCommand : ICommand
+    public class SubCountCommand : AbstractCommand
     {
-        public void Execute()
+        public override void OnExecute()
         {
-            CounterApp.Get<ICounterModel>().Count.Value--;
+            this.GetModel<ICounterModel>().Count.Value--;
         }
     }
 }

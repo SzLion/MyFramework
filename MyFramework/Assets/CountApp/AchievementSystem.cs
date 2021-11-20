@@ -12,7 +12,7 @@ namespace FrameworkDesign
 
         protected override void OnInit()
         {
-            var counterModel = GetArchitecture().GetModel<ICounterModel>();
+            var counterModel = this.GetModel<ICounterModel>();
             var previousCount = counterModel.Count.Value;
 
             counterModel.Count.OnValueChanged += newCount =>

@@ -1,15 +1,14 @@
-
 namespace FrameworkDesign.Example
 {
-    public struct KillEnemyCommand : ICommand
+    public class KillEnemyCommand : AbstractCommand
     {
-        public void Execute()
+        public override void OnExecute()
         {
-            var gameModel = PointGame.Get<IGameModel>();
-            gameModel.KillCount.Value++;            
+            var gameModel = this.GetModel<IGameModel>();
+            gameModel.KillCount.Value++;
             if (gameModel.KillCount.Value == 9)
             {
-                GamePassEvent.Trigger();                
+                GamePassEvent.Trigger();
             }
         }
     }
