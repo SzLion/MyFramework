@@ -47,6 +47,30 @@ namespace FrameworkDesign
         void SendCommand<T>() where T : ICommand, new();
 
         void SendCommand<T>(T command) where T : ICommand;
+        /// <summary>
+        /// 发送事件
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        void SendEvent<T>() where T : new();
+        /// <summary>
+        /// 发送事件
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="e"></param>
+        void SendEvent<T>(T e);
+        /// <summary>
+        /// 注册事件
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="onEvent"></param>
+        /// <returns></returns>
+        IUnRegister RegisterEvent<T>(Action<T> onEvent);
+        /// <summary>
+        /// 注销事件
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="onEvent"></param>
+        void UnRegisterEvent<T>(Action<T> onEvent);
     }
     public abstract class Architecture<T> : IArchitecture where T : Architecture<T>, new()
     {
@@ -182,6 +206,28 @@ namespace FrameworkDesign
         public T GetSystem<T>() where T : class, ISystem
         {
             return mContainer.Get<T>();
+        }
+
+        private ITypeEventSystem mTypeEventSystem = new TypeEventSystem();
+
+        public void SendEvent<T>() where T : new()
+        {
+            mTypeEventSystem.Send<T>();
+        }
+
+        public void SendEvent<T>(T e)
+        {
+            mTypeEventSystem.Send<T>(e);
+        }
+
+        public IUnRegister RegisterEvent<T>(Action<T> onEvent)
+        {
+            return  mTypeEventSystem.Register<T>(onEvent);
+        }
+
+        public void UnRegisterEvent<T>(Action<T> onEvent)
+        {
+            mTypeEventSystem.UnRegister<T>(onEvent);
         }
     }
 }

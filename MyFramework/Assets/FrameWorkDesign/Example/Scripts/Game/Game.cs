@@ -1,25 +1,30 @@
 using UnityEngine;
 namespace FrameworkDesign.Example
 {
-    public class Game : MonoBehaviour
+    public class Game : MonoBehaviour, IController
     {
         // Start is called before the first frame update
         void Start()
         {
-            GameStartEvent.Register(OnGameStart);            
+            this.RegisterEvent<GameStartEvent>(OnGameStart);
         }
-      
 
-       
-                                                                                                                                                                                         
-        private void OnGameStart()
+
+
+
+        private void OnGameStart(GameStartEvent e)
         {
             transform.Find("Enemys").gameObject.SetActive(true);
         }
 
         private void OnDestroy()
         {
-            GameStartEvent.UnRegister(OnGameStart);           
+            this.RegisterEvent<GameStartEvent>(OnGameStart);
+        }
+
+        public IArchitecture GetArchitecture()
+        {
+            return PointGame.Interface;
         }
     }
 }
